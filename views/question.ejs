@@ -5,12 +5,12 @@
 
 <body>
   <h1>Realizar pergunta!</h1>
-  <form>
+  <form method="post" action="/question">
     <label>titulo</label>
-    <input type="text" placeholder="title">
+    <input type="text" placeholder="title" name="title">
 
     <label>descricao</label>
-    <textarea placeholder="decreva sua pergunta..."></textarea>
+    <textarea placeholder="decreva sua pergunta..." name="description"></textarea>
 
     <button>send</button>
   </form>
