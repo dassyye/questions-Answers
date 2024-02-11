@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./partials/head.ejs') %>
+
+<body>
+  <h1>Seja muito bem vindo <%= username%>!</h1>
+
+  <!--condicao em EJS -->
+  <% if(show) {%>
+    <p>agora ta na tela</p>
+  <%} else { %>
+    <p>saiu da tela</p>
+  <% } %>
+
+  <!--repeticao em EJS -->
+  <% for(let index = 0; index < 10; index++) {%>
+    <p><%= index %></p>
+  <% } %>
+</body>
+</html>
