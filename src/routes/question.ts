@@ -1,5 +1,7 @@
 import { Router } from 'express'
 
+import { sequelize } from '../lib/sequelize'
+
 export const question = Router()
 
 question.get('/question', (req, res) => {
