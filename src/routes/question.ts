@@ -1,18 +1,33 @@
 import { Router } from 'express'
+import { z } from 'zod'
 
 import { sequelize } from '../lib/sequelize'
+import questionModel from '../lib/models'
 
 export const question = Router()
 
 question.get('/question', (req, res) => {
+  questionModel.findAll({raw: true}).then(question => {
+    console.log(question)
+  })
   res.render('question')
 })
 
+
 question.post('/question', (req, res) => {
-  const title = req.body.title
-  const description = req.body.description
+  const questionSchema = z.object({
+    title: z.string(),
+    description: z.string(),
+  })
 
-  console.log(`${title} ${description}`)
+  const { title, description } = questionSchema.parse(req.body)
 
-  res.send('formulario enviado!')
+  questionModel.create({
+    title,
+    description
+  }).then(() => {
+    res.redirect('/')
+  }).catch((error) => {
+    console.log(error)
+  })
 })

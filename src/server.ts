@@ -1,11 +1,25 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import { env } from './env/index.js'
 
-import { question } from './routes/question.js'
+import { sequelize } from './lib/sequelize.ts'
+import questionModel from './lib/models.ts'
+
+import { env } from './env/index.ts'
+
+import { question } from './routes/question.ts'
 
 const app = express()
 
+// connetion db
+try {
+  sequelize.authenticate()
+  console.log('Connection has been established successfully.');
+  questionModel
+} catch (error) {
+  console.error('Unable to connect to the database:', error);
+}
+
+// body parser
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
