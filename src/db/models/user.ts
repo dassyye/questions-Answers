@@ -30,7 +30,8 @@ User.init({
   }
 }, {
   sequelize: db,
-  tableName: 'user'
+  tableName: 'user',
+  timestamps: false
 })
 
 export default User

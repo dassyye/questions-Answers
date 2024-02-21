@@ -8,6 +8,16 @@ module.exports = {
         type: Sequelize.UUID,
         primaryKey: true,
         allowNull: false,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      },
+      reply: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      question_id: {
+        type: Sequelize.UUID,
+        allowNull: false,
         references: {
           model: 'question',
           key: 'id'
@@ -15,10 +25,6 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
-      reply: {
-        type: Sequelize.STRING,
-        allowNull: false
-      }
     })
   },
 

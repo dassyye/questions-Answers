@@ -6,6 +6,7 @@ import Question from './question'
 class Reply extends Model {
   declare id: string
   declare reply: string
+  declare questionId: string
 }
 
 Reply.init({
@@ -23,15 +24,22 @@ Reply.init({
   reply: {
     type: sequelize.STRING,
     allowNull: false
-  }
+  },
+  questionId: {
+    type: sequelize.UUID,
+    allowNull: false,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  },
 }, {
   sequelize: db,
-  tableName: 'reply'
+  tableName: 'reply',
+  underscored: true,
+  timestamps: false
 })
 
 Reply.belongsTo(Question, {
-  foreignKey: 'id',
-  as: 'question'
+  foreignKey: 'questionId',
 })
 
 export default Reply

@@ -1,33 +1,12 @@
 import { Router } from 'express'
-import { z } from 'zod'
 
-import { sequelize } from '../lib/sequelize'
-import questionModel from '../lib/models'
+import QuestionController from '../controller/question.controller'
+import { verifyToken } from '../jwt'
+
+const control = new QuestionController()
 
 export const question = Router()
 
-question.get('/question', (req, res) => {
-  questionModel.findAll({raw: true}).then(question => {
-    console.log(question)
-  })
-  res.render('question')
-})
+question.get('/question', control.get.bind(control))
 
-
-question.post('/question', (req, res) => {
-  const questionSchema = z.object({
-    title: z.string(),
-    description: z.string(),
-  })
-
-  const { title, description } = questionSchema.parse(req.body)
-
-  questionModel.create({
-    title,
-    description
-  }).then(() => {
-    res.redirect('/')
-  }).catch((error) => {
-    console.log(error)
-  })
-})
+question.post('/question', verifyToken, control.create.bind(control))
