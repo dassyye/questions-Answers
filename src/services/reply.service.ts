@@ -19,15 +19,13 @@ class ReplyService {
   async create(reply: IReply) {
     const replyParse = replyBodySchema.parse(reply)
 
-    // const questionId = await Question.findByPk(replyParse.questionId)
-    // console.log(questionId)
+    const questionId = await Question.findByPk(replyParse.question_id)
 
-    // if(!questionId) return resp(404, 'question not found')
+    if(!questionId) return resp(404, 'question not found')
 
     const createdReply = await this.model.create({
       id: randomUUID(),
-      reply: 'oi vida',
-      questionId: '9f91ca41-db3f-49ef-a15b-fa5c8300a9c0'
+      ...replyParse
     })
 
     return resp(201, createdReply)

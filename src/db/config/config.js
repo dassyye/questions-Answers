@@ -9,6 +9,6 @@ module.exports = {
   password: DB_PASSWORD,
   database: DB_DATABASE,
   define: {
-    timestamps: true
+    timestamps: true,
   }
 }

@@ -1,45 +1,29 @@
-import sequelize, { Model } from 'sequelize'
-import db from '.'
+import { DataTypes, Model } from 'sequelize'
+
+import connection from '.'
 
 import Question from './question'
 
 class Reply extends Model {
   declare id: string
   declare reply: string
-  declare questionId: string
 }
 
 Reply.init({
   id: {
-    type: sequelize.UUID,
-    primaryKey: true,
-    allowNull: false,
-    references: {
-      model: 'question',
-      key: 'id'
-    },
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
+    type: DataTypes.UUID,
+    primaryKey: true
   },
-  reply: {
-    type: sequelize.STRING,
-    allowNull: false
-  },
-  questionId: {
-    type: sequelize.UUID,
-    allowNull: false,
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
-  },
+  reply: DataTypes.STRING,
 }, {
-  sequelize: db,
-  tableName: 'reply',
+  sequelize: connection,
   underscored: true,
-  timestamps: false
+  tableName: 'reply'
 })
 
 Reply.belongsTo(Question, {
-  foreignKey: 'questionId',
+  foreignKey: 'question_id',
+  as: 'question'
 })
 
 export default Reply

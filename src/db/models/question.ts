@@ -1,5 +1,6 @@
-import sequelize, { Model } from 'sequelize'
-import db from '.'
+import { DataTypes, Model } from 'sequelize'
+
+import connection from '.'
 
 class Question extends Model {
   declare id: string
@@ -8,18 +9,14 @@ class Question extends Model {
 
 Question.init({
   id: {
-    type: sequelize.UUID,
-    allowNull: false,
+    type: DataTypes.UUID,
     primaryKey: true
   },
-  question: {
-    type: sequelize.STRING,
-    allowNull: false
-  }
+  question: DataTypes.STRING
 }, {
-  sequelize: db,
-  tableName: 'question',
-  timestamps: false
+  sequelize: connection,
+  underscored: true,
+  tableName: 'question'
 })
 
 export default Question

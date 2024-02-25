@@ -10,5 +10,5 @@ export const userBodySchema = z.object({
 export const replyBodySchema = z.object({
   id: z.string().optional(),
   reply: z.string(),
-  questionId: z.string()
+  question_id: z.string()
 })

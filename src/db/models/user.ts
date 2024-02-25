@@ -1,6 +1,6 @@
-import sequelize, { Model } from 'sequelize'
+import { Model, DataTypes } from 'sequelize'
 
-import db from '.'
+import connection from '.'
 
 class User extends Model {
   declare id: string
@@ -11,27 +11,16 @@ class User extends Model {
 
 User.init({
   id: {
-    type: sequelize.UUID,
-    allowNull: false,
+    type: DataTypes.UUID,
     primaryKey: true
   },
-  username: {
-    type: sequelize.STRING,
-    allowNull: false
-  },
-  email: {
-    type: sequelize.STRING,
-    allowNull: false,
-    unique: true
-  },
-  password: {
-    type: sequelize.STRING,
-    allowNull: false
-  }
+  username: DataTypes.STRING,
+  email: DataTypes.STRING,
+  password: DataTypes.STRING
 }, {
-  sequelize: db,
-  tableName: 'user',
-  timestamps: false
+  sequelize: connection,
+  underscored: true,
+  tableName: 'user'
 })
 
 export default User
